@@ -1,4 +1,5 @@
 import argparse
+import datetime
 import os
 import pandas as pd
 import plot
@@ -12,6 +13,8 @@ def analyzeStackOverflow(start_date, end_date, input_file, plot_dir):
         print(f"ERROR: The input file '{input_file}' does not exist.")
         sys.exit(1)
 
+    tools.makeDir(plot_dir)
+    
     post_types = ["Questions", "Answers"]
 
     df = pd.read_csv(input_file, encoding="latin1")
@@ -19,17 +22,17 @@ def analyzeStackOverflow(start_date, end_date, input_file, plot_dir):
     # Convert date strings to datetime objects
     df["Date"] = pd.to_datetime(df["Date"], errors='coerce')
 
-    print(df)
+    start_date_object, end_date_object = getDateObjects(start_date, end_date)
 
-    tools.makeDir(plot_dir)
+    print(df)
 
     plot_name = "stack_overflow_posts"
 
     title = "Stack Overflow Posts"
     x_label = "Time"
-    y_label = "Number of posts"
-    x_lim = []
-    y_lim = []
+    y_label = "Posts per month"
+    x_lim = [start_date_object, end_date_object]
+    y_lim = [0, 5e5]
 
     # Use Tableau colors
     colors = {
@@ -40,6 +43,12 @@ def analyzeStackOverflow(start_date, end_date, input_file, plot_dir):
     plot.makeMultiPlot(df, post_types, plot_dir, plot_name, title, x_label, y_label, x_lim, y_lim, colors)
 
     print("Done!")
+
+def getDateObjects(start_date, end_date):
+    date_format = "%Y-%m-%d"
+    start_date_object   = datetime.datetime.strptime(start_date, date_format)
+    end_date_object     = datetime.datetime.strptime(end_date, date_format)
+    return (start_date_object, end_date_object)
 
 def main():
     # Arguments
