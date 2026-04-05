@@ -12,7 +12,12 @@ def analyzeStackOverflow(start_date, end_date, input_file, plot_dir):
         print(f"ERROR: The input file '{input_file}' does not exist.")
         sys.exit(1)
 
+    post_types = ["Questions", "Answers"]
+
     df = pd.read_csv(input_file, encoding="latin1")
+
+    # Convert date strings to datetime objects
+    df["Date"] = pd.to_datetime(df["Date"], errors='coerce')
 
     print(df)
 
@@ -32,7 +37,7 @@ def analyzeStackOverflow(start_date, end_date, input_file, plot_dir):
         "Answers"   : "tab:blue"
     }
 
-    plot.makeMultiPlot(df, plot_dir, plot_name, title, x_label, y_label, x_lim, y_lim, colors)
+    plot.makeMultiPlot(df, post_types, plot_dir, plot_name, title, x_label, y_label, x_lim, y_lim, colors)
 
     print("Done!")
 
