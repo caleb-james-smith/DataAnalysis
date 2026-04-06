@@ -8,6 +8,7 @@ The SQL query [here](https://data.stackexchange.com/stackoverflow/query/1942068/
 1. Choose a working area and clone this repository.
 ```
 git clone https://github.com/caleb-james-smith/DataAnalysis.git
+cd DataAnalysis
 ```
 
 2. Create a Python virtual environment and install the required packages.
