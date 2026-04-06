@@ -21,12 +21,19 @@ def analyzeStackOverflow(start_date, end_date, input_file, plot_dir):
 
     # Convert date strings to datetime objects
     df["Date"] = pd.to_datetime(df["Date"], errors='coerce')
+    
+    print("Data frame:")
+    print(df)
+    print()
 
     start_date_object, end_date_object = getDateObjects(start_date, end_date)
+    plot_name = createPlotName(start_date, end_date)
 
-    print(df)
-
-    plot_name = "stack_overflow_posts"
+    print(f" - start date: {start_date}")
+    print(f" - end date: {end_date}")
+    print(f" - input file: {input_file}")
+    print(f" - plot directory: {plot_dir}")
+    print(f" - plot name: {plot_name}")
 
     title = "Stack Overflow Posts"
     x_label = "Time"
@@ -49,6 +56,12 @@ def getDateObjects(start_date, end_date):
     start_date_object   = datetime.datetime.strptime(start_date, date_format)
     end_date_object     = datetime.datetime.strptime(end_date, date_format)
     return (start_date_object, end_date_object)
+
+def createPlotName(start_date, end_date):
+    start_date_for_name = start_date.replace("-", "_")
+    end_date_for_name   = end_date.replace("-", "_")
+    plot_name           = "stack_overflow_posts_{0}_to_{1}".format(start_date_for_name, end_date_for_name)
+    return plot_name
 
 def main():
     # Arguments
