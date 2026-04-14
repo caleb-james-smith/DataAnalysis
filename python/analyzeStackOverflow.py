@@ -35,9 +35,9 @@ def analyzeStackOverflow(start_date, end_date, input_file, plot_dir):
     print(f" - plot directory: {plot_dir}")
     print(f" - plot name: {plot_name}")
 
-    title = "Stack Overflow Posts"
-    x_label = "Time"
-    y_label = "Posts per month"
+    title = "Monthly posts on Stack Overflow"
+    x_label = "Date"
+    y_label = "Number of posts per month"
     x_lim = [start_date_object, end_date_object]
     y_lim = [0, 5e5]
 
