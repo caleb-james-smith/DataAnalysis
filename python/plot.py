@@ -18,7 +18,7 @@ def makeMultiPlot(data, post_types, plot_dir, plot_name, title, x_label, y_label
         plt.xlim(x_lim)
     if y_lim:
         plt.ylim(y_lim)
-    ax.legend()
+    ax.legend(loc="upper right", fontsize=16)
     plt.grid(True)
     # plt.xticks(rotation=45, fontsize=10)
     plt.xticks(fontsize=10)
@@ -26,9 +26,8 @@ def makeMultiPlot(data, post_types, plot_dir, plot_name, title, x_label, y_label
 
     savePlot(plot_dir, plot_name)
 
-    # close all windows to avoid combining plots
+    # close all windows
     plt.close('all')
-
 
 # save plot to png and pdf
 def savePlot(plot_dir, plot_name):
